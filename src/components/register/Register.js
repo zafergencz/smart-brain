@@ -19,7 +19,7 @@ class Register extends React.Component {
 		this.setState({registerPassword: event.target.value})	
 	}
 	onSubmitRegister = (event) =>{
-		fetch('http://localhost:3000/register',{
+		fetch('https://polar-bayou-29191.herokuapp.com/register',{
 			method: 'post',
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({
@@ -33,6 +33,8 @@ class Register extends React.Component {
       			if(user.id){
       				this.props.loadUser(user);
       				this.props.onRouteChange('home');
+      			}else{
+      				this.props.alert.show("register info is not correct")
       			}
       		});
 	}

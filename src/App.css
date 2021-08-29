@@ -15,3 +15,8 @@
 	right: 0;
 	z-index: -1;
 }
+
+#__react-alert__ div div div {
+  width: auto !important;
+  opacity: 0.7 !important;
+}

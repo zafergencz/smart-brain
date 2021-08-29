@@ -8,6 +8,8 @@ import Register from './components/register/Register';
 import ImageLinkForm from './components/imagelinkform/ImageLinkForm';
 import FaceRecognition from './components/facerecognition/FaceRecognition';
 import './App.css';
+import { withAlert } from 'react-alert'
+
 
 const particleOptions = {
   particles: {
@@ -95,7 +97,7 @@ class App extends Component {
   onButtonSubmit = (event) => {
     this.setState({imageUrl: this.state.input});
 
-    fetch('http://localhost:3000/imageurl', {
+    fetch('https://polar-bayou-29191.herokuapp.com/imageurl', {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
@@ -105,7 +107,7 @@ class App extends Component {
     .then(res => res.json())    
     .then(res => {
       if(res){
-        fetch('http://localhost:3000/image', {
+        fetch('https://polar-bayou-29191.herokuapp.com/image', {
           method: 'put',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({
@@ -136,6 +138,8 @@ class App extends Component {
 
   render(){
     const {imageUrl, box, route, isSignedIn} = this.state;
+    const alert = this.props.alert;
+
     return (
       <div className="App">
         <Particles className = "particles" params={particleOptions}/>                
@@ -157,10 +161,12 @@ class App extends Component {
                 route === 'signin' || route === 'signout'
                 ? <Signin 
                     onRouteChange= {this.onRouteChange}
-                    loadUser= {this.loadUser}/> 
+                    loadUser= {this.loadUser}
+                    alert = {alert}/> 
                 : <Register 
                       onRouteChange= {this.onRouteChange} 
-                      loadUser= {this.loadUser}/> 
+                      loadUser= {this.loadUser}
+                      alert = {alert}/> 
               )
         }       
       </div>
@@ -168,4 +174,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withAlert()(App)

@@ -6,8 +6,9 @@ class Signin extends React.Component{
 		this.state = {
 			signInEmail: '',
 			signInPassword: ''
-		}
-	}
+		}	
+	}	
+
 	onEmailChange = (event) => {
 		this.setState({signInEmail: event.target.value})
 	}
@@ -17,7 +18,7 @@ class Signin extends React.Component{
 	}
 
 	onSubmitSignIn = () => {
-		fetch('http://localhost:3000/signin',{
+		fetch('https://polar-bayou-29191.herokuapp.com/signin',{
 			method: 'post',
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({
@@ -30,12 +31,15 @@ class Signin extends React.Component{
       			if(user.id){
       				this.props.loadUser(user);
       				this.props.onRouteChange('home');
+      			}else{
+      				this.props.alert.show("email or password is wrong");
       			}
       		});
     }
 
 	render(){
 		const {onRouteChange} = this.props;
+
 		return(
 			<article className="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
 				<main className="pa4 black-80">
